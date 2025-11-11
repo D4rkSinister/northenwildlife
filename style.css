@@ -1,0 +1,120 @@
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 70px; /* This leaves space for the sticky navbar */
+}
+
+body {
+    padding-top: 56px; /* Pushes content down below the fixed navbar */
+}
+
+.carousel-item {
+    height: 90vh;
+    min-height: 300px;
+    position: relative; /* This is needed for the overlay to work */
+}
+
+.carousel-item img {
+    height: 100%;
+    object-fit: cover;
+}
+
+/* This is the new style for the dark overlay */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Black with 40% opacity */
+    z-index: 1; /* Puts the overlay above the image but below the text */
+}
+
+.carousel-caption {
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: auto;
+    z-index: 2; /* Puts the text on top of the overlay */
+}
+
+.carousel-caption h1, .carousel-caption p {
+    text-shadow: none; /* We don't need the text shadow anymore with the overlay */
+}
+
+#about {
+  background-image: url('https://ichef.bbci.co.uk/images/ic/1920xn/p015x2wg.jpg'); /* Example image of snowy mountains */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  color: white; 
+  position: relative; 
+  overflow: hidden; 
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  
+  /* --- New: Add a white line/separation at the top --- */
+  border-top: 15px solid white; /* A 10px solid white line */
+}
+
+#about::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 0; 
+}
+
+#about .container {
+    position: relative;
+    z-index: 1; 
+}
+
+#about h2 {
+    color: white; 
+}
+
+#about img {
+    border-radius: 1rem !important;
+}
+
+.card-img-top {
+    height: 225px;
+    object-fit: cover;
+}
+
+/* Background for the Seal Page */
+body.seal-page {
+    background-image: url('https://cdn.britannica.com/08/135708-159-29166DA0/Paradise-Bay-Antarctica.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Creates a nice parallax effect */
+}
+
+/* Make title text readable on the new background */
+.seal-page .text-center h1,
+.seal-page .text-center .lead {
+    color: #ffffff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7); /* Adds a shadow for readability */
+}
+/* Darken the background for the Seal Page for better contrast */
+body.seal-page::before {
+    content: '';
+    position: fixed; /* Covers the entire screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* A semi-transparent black overlay. You can change 0.3 to 0.4 for even darker. */
+    background-color: rgba(0, 0, 0, 0.3); 
+    z-index: -1; /* Puts the overlay behind all your content */
+}
+
+/* Make title text easier to read with a stronger shadow */
+.seal-page .text-center h1,
+.seal-page .text-center .lead {
+    color: #ffffff;
+    /* A slightly stronger shadow for more 'pop' */
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9); 
+}
