@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 10 Members | Antarctica Life</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font and fallback to a clean Thai font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Sans+Thai:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            background-color: #F8FAFC; 
+            scroll-behavior: smooth;
+        }
+        /* Custom Theme Colors/Styles */
+        .text-natgeo-blue {
+            color: #004680;
+        }
+        .bg-ice-blue-light {
+             background-color: #E6F7FF;
+        }
+        .university-logo {
+            filter: brightness(0.5) sepia(1) saturate(5) hue-rotate(190deg);
+        }
+        .hero-bg-members {
+            /* Using a placeholder for a team photo or SPU background */
+            background-image: url('https://www.spu.ac.th/wp-content/uploads/2022/02/SPU-Gallery-3.webp');
+            background-size: cover;
+            background-position: center 50%;
+            position: relative;
+        }
+        .hero-overlay {
+            background-color: rgba(0, 70, 128, 0.5); 
+        }
+        .member-photo {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            object-position: center;
+        }
+        .member-card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 70, 128, 0.3);
+        }
+         /* Dropdown transition for smooth open/close (Consistent across all pages) */
+        .dropdown-menu-transition {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform-origin: top;
+        }
+        .dropdown-hidden {
+            opacity: 0;
+            transform: scaleY(0.9);
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .dropdown-visible {
+            opacity: 1;
+            transform: scaleY(1);
+            visibility: visible;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- 1. NAVIGATION BAR (Sticky, Deep Blue) -->
+    <nav class="sticky top-0 z-50 bg-white shadow-lg border-b-4 border-natgeo-blue">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <a href="index.html" class="flex-shrink-0 flex items-center text-2xl font-extrabold text-natgeo-blue tracking-wider">
+                        <img src="new_logo_spu04.gif" alt="SPU University Logo" class="w-16 h-auto mr-2 university-logo">
+                        ANTARCTICA LIFE
+                    </a>
+                </div>
+                <!-- Navigation Links -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8 items-center">
+                    <a href="index.html#home" class="text-gray-600 hover:text-natgeo-blue px-3 py-2 rounded-lg transition duration-150">หน้าแรก</a>
+                    <a href="index.html#about" class="text-gray-600 hover:text-natgeo-blue px-3 py-2 rounded-lg transition duration-150">แผ่นน้ำแข็ง</a>
+                    
+                    <!-- Click-Toggled Dropdown Menu for Wildlife -->
+                    <div class="relative" id="wildlife-dropdown-container">
+                        <button id="wildlife-dropdown-btn" class="text-gray-600 hover:text-natgeo-blue px-3 py-2 rounded-lg transition duration-150 flex items-center focus:outline-none" aria-expanded="false">
+                            สิ่งมีชีวิต
+                            <svg class="ml-1 w-4 h-4 transition duration-150" id="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <!-- The Menu: Initially hidden (dropdown-hidden) -->
+                        <div id="wildlife-dropdown-menu" class="absolute right-0 mt-3 py-2 bg-white rounded-lg shadow-xl border-2 border-natgeo-blue overflow-hidden z-40
+                                    dropdown-menu-transition dropdown-hidden">
+                            <a href="seal.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150 min-w-[150px]">แมวน้ำ (Seal)</a>
+                            <a href="polarbear.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">หมีขั้วโลก (Polar Bear)</a>
+                            <a href="penguin.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">เพนกวิน (Penguin)</a>
+                            <a href="orca.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">วาฬเพชฌฆาต (Orca)</a>
+                            <a href="misc.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">เบ็ดเตล็ด (Misc.)</a>
+                        </div>
+                    </div>
+
+                    <!-- Group 10 Member Button -->
+                    <a href="group.html" class="bg-white text-natgeo-blue font-bold px-4 py-2 rounded-full shadow-lg border-2 border-natgeo-blue hover:bg-natgeo-blue hover:text-white transition duration-150 bg-blue-50">
+                        สมาชิกกลุ่ม (Group 10 Member)
+                    </a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button id="mobile-menu-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-natgeo-blue hover:text-white hover:bg-natgeo-blue focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html#home" class="bg-natgeo-blue text-white block px-3 py-2 rounded-md text-base font-medium">หน้าแรก (Home)</a>
+                <a href="index.html#about" class="text-natgeo-blue hover:bg-blue-100 block px-3 py-2 rounded-md text-base font-medium">แผ่นน้ำแข็ง (The Ice Sheet)</a>
+                <a href="#wildlife" class="text-natgeo-blue hover:bg-blue-100 block px-3 py-2 rounded-md text-base font-medium">สิ่งมีชีวิต (Dropdown Parent)</a>
+                <a href="seal.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- แมวน้ำ (Seal)</a>
+                <a href="polarbear.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- หมีขั้วโลก (Polar Bear)</a>
+                <a href="penguin.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- เพนกวิน (Penguin)</a>
+                <a href="orca.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- วาฬเพชฌฆาต (Orca)</a>
+                <a href="misc.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- เบ็ดเตล็ด (Misc.)</a>
+                <a href="group_members.html" class="text-natgeo-blue hover:bg-blue-100 block px-3 py-2 rounded-md text-base font-medium bg-blue-100">สมาชิกกลุ่ม (Group 10 Member)</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. HERO SECTION (Specific to Team) -->
+    <header class="hero-bg-members h-[50vh] min-h-[300px] flex items-center justify-center shadow-xl">
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="relative text-center p-6 md:p-12">
+            <h1 class="text-5xl md:text-7xl font-black text-white leading-tight mb-4 tracking-tighter drop-shadow-lg">
+                สมาชิกกลุ่ม (Group 10 Member)
+            </h1>
+            <p class="text-xl md:text-2xl text-white font-light drop-shadow-md italic">
+                ผู้ริเริ่มและผู้อยู่เบื้องหลังการทำเว็ปไซต์นี้
+            </p>
+        </div>
+    </header>
+
+    <!-- 3. MEMBER CARDS -->
+    <main class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+        <h2 class="text-4xl font-extrabold text-center mb-12 text-natgeo-blue border-b-4 border-ice-blue pb-4">
+            The Dedicated Team | ทีมงานผู้มุ่งมั่น
+        </h2>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+            
+            <!-- Member Card 1 -->
+            <div class="bg-white rounded-xl shadow-2xl overflow-hidden member-card border-t-8 border-natgeo-blue">
+                <img src="https://placehold.co/400x400/E6F7FF/004680?text=Member+1" class="member-photo" alt="Member 1 Photo Placeholder">
+                <div class="p-4 text-center">
+                    <h3 class="text-xl font-bold text-natgeo-blue mb-1">สมาชิกคนที่ 1</h3>
+                    <p class="text-sm text-gray-700"><strong>ชื่อ:</strong> N/A</p>
+                    <p class="text-sm text-gray-700"><strong>รหัสนักศึกษา:</strong> N/A</p>
+                </div>
+            </div>
+
+            <!-- Member Card 2 -->
+            <div class="bg-white rounded-xl shadow-2xl overflow-hidden member-card border-t-8 border-natgeo-blue">
+                <img src="https://placehold.co/400x400/004680/E6F7FF?text=Member+2" class="member-photo" alt="Member 2 Photo Placeholder">
+                <div class="p-4 text-center">
+                    <h3 class="text-xl font-bold text-natgeo-blue mb-1">สมาชิกคนที่ 2</h3>
+                    <p class="text-sm text-gray-700"><strong>ชื่อ:</strong> N/A</p>
+                    <p class="text-sm text-gray-700"><strong>รหัสนักศึกษา:</strong> N/A</p>
+                </div>
+            </div>
+
+            <!-- Member Card 3 -->
+            <div class="bg-white rounded-xl shadow-2xl overflow-hidden member-card border-t-8 border-natgeo-blue">
+                <img src="https://placehold.co/400x400/E6F7FF/004680?text=Member+3" class="member-photo" alt="Member 3 Photo Placeholder">
+                <div class="p-4 text-center">
+                    <h3 class="text-xl font-bold text-natgeo-blue mb-1">สมาชิกคนที่ 3</h3>
+                    <p class="text-sm text-gray-700"><strong>ชื่อ:</strong> N/A</p>
+                    <p class="text-sm text-gray-700"><strong>รหัสนักศึกษา:</strong> N/A</p>
+                </div>
+            </div>
+
+            <!-- Member Card 4 -->
+            <div class="bg-white rounded-xl shadow-2xl overflow-hidden member-card border-t-8 border-natgeo-blue">
+                <img src="https://placehold.co/400x400/004680/E6F7FF?text=Member+4" class="member-photo" alt="Member 4 Photo Placeholder">
+                <div class="p-4 text-center">
+                    <h3 class="text-xl font-bold text-natgeo-blue mb-1">สมาชิกคนที่ 4</h3>
+                    <p class="text-sm text-gray-700"><strong>ชื่อ:</strong> N/A</p>
+                    <p class="text-sm text-gray-700"><strong>รหัสนักศึกษา:</strong> N/A</p>
+                </div>
+            </div>
+            
+            <!-- Member Card 5 -->
+            <div class="bg-white rounded-xl shadow-2xl overflow-hidden member-card border-t-8 border-natgeo-blue">
+                <img src="https://placehold.co/400x400/E6F7FF/004680?text=Member+5" class="member-photo" alt="Member 5 Photo Placeholder">
+                <div class="p-4 text-center">
+                    <h3 class="text-xl font-bold text-natgeo-blue mb-1">สมาชิกคนที่ 5</h3>
+                    <p class="text-sm text-gray-700"><strong>ชื่อ:</strong> N/A</p>
+                    <p class="text-sm text-gray-700"><strong>รหัสนักศึกษา:</strong> N/A</p>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 4. FOOTER (Consistent with other pages) -->
+    <footer class="bg-ice-blue-light py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg mb-2 text-natgeo-blue">&copy; 2024 Antarctica Life Expedition | สงวนลิขสิทธิ์ทั้งหมด</p>
+            <p class="text-sm opacity-90 text-natgeo-blue">โครงการเพื่อการศึกษาและเผยแพร่ความรู้ ร่วมกับ มหาวิทยาลัยศรีปทุม</p>
+        </div>
+    </footer>
+
+
+    <!-- JavaScript (Includes dropdown and mobile menu toggle logic) -->
+    <script>
+        // 1. Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // 2. Click-Toggled Dropdown Logic
+        const dropdownBtn = document.getElementById('wildlife-dropdown-btn');
+        const dropdownMenu = document.getElementById('wildlife-dropdown-menu');
+        const dropdownContainer = document.getElementById('wildlife-dropdown-container');
+        const dropdownArrow = document.getElementById('dropdown-arrow');
+
+        const toggleDropdown = () => {
+            const isVisible = dropdownMenu.classList.toggle('dropdown-hidden');
+            dropdownMenu.classList.toggle('dropdown-visible');
+            dropdownBtn.setAttribute('aria-expanded', !isVisible);
+            
+            if (!isVisible) {
+                dropdownArrow.classList.add('rotate-180');
+            } else {
+                dropdownArrow.classList.remove('rotate-180');
+            }
+        };
+
+        dropdownBtn.addEventListener('click', toggleDropdown);
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            if (dropdownMenu.classList.contains('dropdown-visible') && !dropdownContainer.contains(event.target)) {
+                toggleDropdown();
+            }
+        });
+    </script>
+
+</body>
+</html>

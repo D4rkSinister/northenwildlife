@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polar Bear | Antarctica Life</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font and fallback to a clean Thai font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Sans+Thai:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            background-color: #F8FAFC; 
+            scroll-behavior: smooth;
+        }
+        /* Custom Theme Colors/Styles */
+        .text-natgeo-blue {
+            color: #004680;
+        }
+        .bg-ice-blue-light {
+             background-color: #E6F7FF;
+        }
+        .university-logo {
+            filter: brightness(0.5) sepia(1) saturate(5) hue-rotate(190deg);
+        }
+        .hero-bg-polar {
+            /* Using a dramatic Arctic image */
+            background-image: url('https://images.unsplash.com/photo-1589656966895-2f33e7653819?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwcm9maWxlLWxpa2VkfDEzfHx8ZW58MHx8fHx8');
+            background-size: cover;
+            background-position: center 30%;
+            position: relative;
+        }
+        .hero-overlay {
+            background-color: rgba(0, 70, 128, 0.5); 
+        }
+        /* Dropdown transition for smooth open/close (Consistent across all pages) */
+        .dropdown-menu-transition {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform-origin: top;
+        }
+        .dropdown-hidden {
+            opacity: 0;
+            transform: scaleY(0.9);
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .dropdown-visible {
+            opacity: 1;
+            transform: scaleY(1);
+            visibility: visible;
+            pointer-events: auto;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- 1. NAVIGATION BAR (Sticky, Deep Blue) -->
+    <nav class="sticky top-0 z-50 bg-white shadow-lg border-b-4 border-natgeo-blue">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <a href="index.html" class="flex-shrink-0 flex items-center text-2xl font-extrabold text-natgeo-blue tracking-wider">
+                        <img src="new_logo_spu04.gif" alt="SPU University Logo" class="w-16 h-auto mr-2 university-logo">
+                        ANTARCTICA LIFE
+                    </a>
+                </div>
+                <!-- Navigation Links -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8 items-center">
+                    <a href="index.html#home" class="text-gray-600 hover:text-natgeo-blue px-3 py-2 rounded-lg transition duration-150">หน้าแรก</a>
+                    <a href="index.html#about" class="text-gray-600 hover:text-natgeo-blue px-3 py-2 rounded-lg transition duration-150">แผ่นน้ำแข็ง</a>
+                    
+                    <!-- Click-Toggled Dropdown Menu for Wildlife -->
+                    <div class="relative" id="wildlife-dropdown-container">
+                        <button id="wildlife-dropdown-btn" class="text-gray-600 hover:text-natgeo-blue px-3 py-2 rounded-lg transition duration-150 flex items-center focus:outline-none" aria-expanded="false">
+                            สิ่งมีชีวิต
+                            <svg class="ml-1 w-4 h-4 transition duration-150" id="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <!-- The Menu: Initially hidden (dropdown-hidden) -->
+                        <div id="wildlife-dropdown-menu" class="absolute right-0 mt-3 py-2 bg-white rounded-lg shadow-xl border-2 border-natgeo-blue overflow-hidden z-40
+                                    dropdown-menu-transition dropdown-hidden">
+                            <a href="seal.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150 min-w-[150px]">แมวน้ำ (Seal)</a>
+                            <a href="polarbear.html" class="block px-4 py-2 text-natgeo-blue font-semibold bg-blue-100 transition duration-150 min-w-[150px]">หมีขั้วโลก (Polar Bear)</a>
+                            <a href="penguin.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">เพนกวิน (Penguin)</a>
+                            <a href="orca.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">วาฬเพชฌฆาต (Orca)</a>
+                            <a href="misc.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">เบ็ดเตล็ด (Misc.)</a>
+                        </div>
+                    </div>
+
+                    <!-- Group 10 Member Button -->
+                    <a href="group.html" class="bg-white text-natgeo-blue font-bold px-4 py-2 rounded-full shadow-lg border-2 border-natgeo-blue hover:bg-natgeo-blue hover:text-white transition duration-150">
+                        สมาชิกกลุ่ม (Group 10 Member)
+                    </a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button id="mobile-menu-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-natgeo-blue hover:text-white hover:bg-natgeo-blue focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html#home" class="bg-natgeo-blue text-white block px-3 py-2 rounded-md text-base font-medium">หน้าแรก (Home)</a>
+                <a href="index.html#about" class="text-natgeo-blue hover:bg-blue-100 block px-3 py-2 rounded-md text-base font-medium">แผ่นน้ำแข็ง (The Ice Sheet)</a>
+                <a href="#wildlife" class="text-natgeo-blue hover:bg-blue-100 block px-3 py-2 rounded-md text-base font-medium">สิ่งมีชีวิต (Dropdown Parent)</a>
+                <a href="seal.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- แมวน้ำ (Seal)</a>
+                <a href="polarbear.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium bg-blue-100">-- หมีขั้วโลก (Polar Bear)</a>
+                <a href="penguin.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- เพนกวิน (Penguin)</a>
+                <a href="orca.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- วาฬเพชฌฆาต (Orca)</a>
+                <a href="misc.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- เบ็ดเตล็ด (Misc.)</a>
+                <a href="group.html" class="text-natgeo-blue hover:bg-blue-100 block px-3 py-2 rounded-md text-base font-medium">สมาชิกกลุ่ม (Group 10 Member)</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. HERO SECTION (Specific to Polar Bear) -->
+    <header class="hero-bg-polar h-[50vh] min-h-[300px] flex items-center justify-center shadow-xl">
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="relative text-center p-6 md:p-12">
+            <h1 class="text-5xl md:text-7xl font-black text-white leading-tight mb-4 tracking-tighter drop-shadow-lg">
+                หมีขั้วโลก: ผู้ล่าแห่งอาร์กติก
+            </h1>
+            <p class="text-xl md:text-2xl text-white font-light drop-shadow-md italic">
+                Arctic Predator: Why They Don't Live in Antarctica
+            </p>
+        </div>
+    </header>
+
+    <!-- 3. MAIN CONTENT SECTION -->
+    <main class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+        <h2 class="text-4xl font-extrabold text-center mb-12 text-natgeo-blue border-b-4 border-ice-blue pb-4">
+            The North and South Poles
+        </h2>
+
+        <div class="grid lg:grid-cols-3 gap-10">
+            <!-- Left Column: Description & Video -->
+            <div class="lg:col-span-2">
+                
+                <!-- Description -->
+                <h3 class="text-3xl font-bold text-natgeo-blue mb-4">หมีขั้วโลกไม่ใช่ผู้พำนักแห่งแอนตาร์กติกา</h3>
+                <p class="text-lg text-gray-700 mb-6">
+                    **English (Description):** Polar bears are the largest land carnivores and are strictly confined to the Arctic region (North Pole), living across the ice floes and coastlines of North America, Europe, and Asia. A common misconception is that they share territory with penguins in the South Pole, but they are separated by thousands of miles of ocean and different ecological zones.
+                </p>
+                <p class="text-lg text-natgeo-blue font-medium mb-8 border-l-4 border-natgeo-blue pl-4 bg-ice-blue-light p-4 rounded-lg">
+                    **Thai (รายละเอียด):** หมีขั้วโลกเป็นสัตว์กินเนื้อบนบกที่ใหญ่ที่สุดและถูกจำกัดพื้นที่เฉพาะในเขตอาร์กติก (ขั้วโลกเหนือ) เท่านั้น โดยอาศัยอยู่ตามแผ่นน้ำแข็งและชายฝั่งของทวีปอเมริกาเหนือ ยุโรป และเอเชีย เป็นความเข้าใจผิดที่มักเกิดขึ้นว่าพวกมันอาศัยอยู่ร่วมกับเพนกวินที่ขั้วโลกใต้ ซึ่งความเป็นจริงแล้วพวกมันถูกคั่นด้วยมหาสมุทรหลายพันไมล์
+                </p>
+                
+                <!-- In-depth Description -->
+                <h3 class="text-3xl font-bold text-natgeo-blue mb-4 mt-8">การปรับตัวเพื่อความอยู่รอดในโลกน้ำแข็ง</h3>
+                <p class="text-lg text-gray-700 mb-4">
+                    Polar bears are supremely adapted for life in the extreme cold. Their thick layer of blubber provides insulation, while their dense underfur and guard hairs, which appear white, are actually translucent and scatter light, providing camouflage. They are powerful swimmers, capable of maintaining a four-mile-per-hour pace, crucial for hunting their primary prey: seals.
+                </p>
+                <p class="text-lg text-gray-700 mb-8">
+                    **Thai (เชิงลึก):** หมีขั้วโลกมีการปรับตัวอย่างยอดเยี่ยมสำหรับชีวิตในสภาพอากาศหนาวจัด ชั้นไขมันหนาช่วยเป็นฉนวนกันความร้อน ขณะที่ขนหนาแน่นของพวกมันช่วยพรางตัว พวกมันเป็นนักว่ายน้ำที่แข็งแกร่ง สามารถรักษาระดับความเร็วได้ดี ซึ่งสำคัญอย่างยิ่งสำหรับการล่าเหยื่อหลักคือแมวน้ำ
+                </p>
+
+                <!-- Video Embed -->
+                <div class="aspect-w-16 aspect-h-9 mb-6 bg-gray-900 rounded-xl shadow-2xl overflow-hidden">
+                    <iframe class="w-full h-96 rounded-lg" src="https://www.youtube.com/embed/D6_e6yKH26Q?autoplay=0&rel=0" title="Polar Bear Hunting and Adaptation" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <!-- Right Column: Fun Facts -->
+            <div class="lg:col-span-1 bg-white p-8 rounded-xl shadow-2xl h-fit border-t-8 border-natgeo-blue">
+                <h3 class="text-3xl font-bold text-natgeo-blue mb-6">เกร็ดน่ารู้ (Fun Facts)</h3>
+                <ul class="space-y-4 text-gray-700">
+                    <li class="flex items-start">
+                        <span class="text-xl text-natgeo-blue font-extrabold mr-3">1.</span>
+                        <div>
+                            <strong class="text-gray-900">ผิวสีดำ:</strong> ใต้ขนที่หนาแน่นของพวกมัน หมีขั้วโลกมีผิวหนังสีดำ ซึ่งช่วยให้พวกมันดูดซับรังสีดวงอาทิตย์ได้สูงสุด
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-xl text-natgeo-blue font-extrabold mr-3">2.</span>
+                        <div>
+                            <strong class="text-gray-900">ไม่ได้มีขนสีขาว:</strong> ขนของพวกมันไม่ใช่สีขาว ขนแต่ละเส้นมีลักษณะโปร่งใสและกลวง สะท้อนแสงจนเกิดภาพลวงตาว่าขาว
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-xl text-natgeo-blue font-extrabold mr-3">3.</span>
+                        <div>
+                            <strong class="text-gray-900">อุ้งมือผิวคลายพื้นรองเท้า:</strong> อุ้งเท้าขนาดใหญ่ของพวกมันสามารถวัดได้กว้างถึง 12 นิ้ว ทำหน้าที่เหมือนรองเท้าเดินหิมะและยึดเกาะบนน้ำแข็งได้ดีเยี่ยม
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <span class="text-xl text-natgeo-blue font-extrabold mr-3">4.</span>
+                        <div>
+                            <strong class="text-gray-900">ไม่เคยจำศีล:</strong> มีเพียงหมีขาวตัวเมียที่ตั้งท้องเท่านั้นที่จะเข้าไปในถ้ำในช่วงที่ไม่มีกิจกรรมใดๆ ในขณะที่หมีขาวตัวผู้และตัวเมียที่ไม่ตั้งท้องจะล่าสัตว์ตลอดทั้งปี
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 4. FOOTER (Consistent with other pages) -->
+    <footer class="bg-ice-blue-light py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg mb-2 text-natgeo-blue">&copy; 2024 Antarctica Life Expedition | สงวนลิขสิทธิ์ทั้งหมด</p>
+            <p class="text-sm opacity-90 text-natgeo-blue">โครงการเพื่อการศึกษาและเผยแพร่ความรู้ ร่วมกับ มหาวิทยาลัยศรีปทุม</p>
+        </div>
+    </footer>
+
+
+    <!-- JavaScript (Includes dropdown and mobile menu toggle logic) -->
+    <script>
+        // 1. Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // 2. Click-Toggled Dropdown Logic
+        const dropdownBtn = document.getElementById('wildlife-dropdown-btn');
+        const dropdownMenu = document.getElementById('wildlife-dropdown-menu');
+        const dropdownContainer = document.getElementById('wildlife-dropdown-container');
+        const dropdownArrow = document.getElementById('dropdown-arrow');
+
+        const toggleDropdown = () => {
+            const isVisible = dropdownMenu.classList.toggle('dropdown-hidden');
+            dropdownMenu.classList.toggle('dropdown-visible');
+            dropdownBtn.setAttribute('aria-expanded', !isVisible);
+            
+            if (!isVisible) {
+                dropdownArrow.classList.add('rotate-180');
+            } else {
+                dropdownArrow.classList.remove('rotate-180');
+            }
+        };
+
+        dropdownBtn.addEventListener('click', toggleDropdown);
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            if (dropdownMenu.classList.contains('dropdown-visible') && !dropdownContainer.contains(event.target)) {
+                toggleDropdown();
+            }
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Miscellaneous Antarctic Life | Antarctica Life</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font and fallback to a clean Thai font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Sans+Thai:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', 'Noto Sans Thai', sans-serif;
+            background-color: #F8FAFC; 
+            scroll-behavior: smooth;
+        }
+        /* Custom Theme Colors/Styles */
+        .text-natgeo-blue {
+            color: #004680;
+        }
+        .bg-ice-blue-light {
+             background-color: #E6F7FF;
+        }
+        .university-logo {
+            filter: brightness(0.5) sepia(1) saturate(5) hue-rotate(190deg);
+        }
+        .hero-bg-misc {
+            /* Using an image of deep-sea life or krill swarm */
+            background-image: url('https://www.ctvnews.ca/resizer/v2/FMNNSUGZYBDVXEDDTZCYANMORU.JPG?smart=true&auth=dc2097ef8884cc33f010c671cf160e0f3b5c53567f6fec80b5ee44f01c1c9119&width=2000&height=1125');
+            background-size: cover;
+            background-position: center 30%; 
+            position: relative;
+        }
+        .hero-overlay {
+            background-color: rgba(0, 70, 128, 0.5); 
+        }
+        .card-image-misc {
+            height: 250px;
+            width: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+        .card-item:hover .card-image-misc {
+            transform: scale(1.05);
+        }
+         /* Dropdown transition for smooth open/close (Consistent across all pages) */
+        .dropdown-menu-transition {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform-origin: top;
+        }
+        .dropdown-hidden {
+            opacity: 0;
+            transform: scaleY(0.9);
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .dropdown-visible {
+            opacity: 1;
+            transform: scaleY(1);
+            visibility: visible;
+            pointer-events: auto;
+        }
+        /* Modal specific styles */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- 1. NAVIGATION BAR (Sticky, Deep Blue) -->
+    <nav class="sticky top-0 z-50 bg-white shadow-lg border-b-4 border-natgeo-blue">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <a href="index.html" class="flex-shrink-0 flex items-center text-2xl font-extrabold text-natgeo-blue tracking-wider">
+                        <img src="new_logo_spu04.gif" alt="SPU University Logo" class="w-16 h-auto mr-2 university-logo">
+                        ANTARCTICA LIFE
+                    </a>
+                </div>
+                <!-- Navigation Links -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8 items-center">
+                    <a href="index.html#home" class="text-gray-600 hover:text-natgeo-blue px-3 py-2 rounded-lg transition duration-150">หน้าแรก</a>
+                    <a href="index.html#about" class="text-gray-600 hover:text-natgeo-blue px-3 py-2 rounded-lg transition duration-150">แผ่นน้ำแข็ง</a>
+                    
+                    <!-- Click-Toggled Dropdown Menu for Wildlife -->
+                    <div class="relative" id="wildlife-dropdown-container">
+                        <button id="wildlife-dropdown-btn" class="text-gray-600 hover:text-natgeo-blue px-3 py-2 rounded-lg transition duration-150 flex items-center focus:outline-none" aria-expanded="false">
+                            สิ่งมีชีวิต
+                            <svg class="ml-1 w-4 h-4 transition duration-150" id="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <!-- The Menu: Initially hidden (dropdown-hidden) -->
+                        <div id="wildlife-dropdown-menu" class="absolute right-0 mt-3 py-2 bg-white rounded-lg shadow-xl border-2 border-natgeo-blue overflow-hidden z-40
+                                    dropdown-menu-transition dropdown-hidden">
+                            <a href="seal.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150 min-w-[150px]">แมวน้ำ (Seal)</a>
+                            <a href="polarbear.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">หมีขั้วโลก (Polar Bear)</a>
+                            <a href="penguin.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">เพนกวิน (Penguin)</a>
+                            <a href="orca.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">วาฬเพชฌฆาต (Orca)</a>
+                            <a href="misc.html" class="block px-4 py-2 text-natgeo-blue font-semibold bg-blue-100 transition duration-150 min-w-[150px]">เบ็ดเตล็ด (Misc.)</a>
+                        </div>
+                    </div>
+
+                    <!-- Group 10 Member Button -->
+                    <a href="group.html" class="bg-white text-natgeo-blue font-bold px-4 py-2 rounded-full shadow-lg border-2 border-natgeo-blue hover:bg-natgeo-blue hover:text-white transition duration-150">
+                        สมาชิกกลุ่ม (Group 10 Member)
+                    </a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button id="mobile-menu-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-natgeo-blue hover:text-white hover:bg-natgeo-blue focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="index.html#home" class="bg-natgeo-blue text-white block px-3 py-2 rounded-md text-base font-medium">หน้าแรก (Home)</a>
+                <a href="index.html#about" class="text-natgeo-blue hover:bg-blue-100 block px-3 py-2 rounded-md text-base font-medium">แผ่นน้ำแข็ง (The Ice Sheet)</a>
+                <a href="#wildlife" class="text-natgeo-blue hover:bg-blue-100 block px-3 py-2 rounded-md text-base font-medium">สิ่งมีชีวิต (Dropdown Parent)</a>
+                <a href="seal.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- แมวน้ำ (Seal)</a>
+                <a href="polarbear.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- หมีขั้วโลก (Polar Bear)</a>
+                <a href="penguin.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- เพนกวิน (Penguin)</a>
+                <a href="orca.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- วาฬเพชฌฆาต (Orca)</a>
+                <a href="misc.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium bg-blue-100">-- เบ็ดเตล็ด (Misc.)</a>
+                <a href="group.html" class="text-natgeo-blue hover:bg-blue-100 block px-3 py-2 rounded-md text-base font-medium">สมาชิกกลุ่ม (Group 10 Member)</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. HERO SECTION (Specific to Misc. Species) -->
+    <header class="hero-bg-misc h-[50vh] min-h-[300px] flex items-center justify-center shadow-xl">
+        <div class="hero-overlay absolute inset-0"></div>
+        <div class="relative text-center p-6 md:p-12">
+            <h1 class="text-5xl md:text-7xl font-black text-white leading-tight mb-4 tracking-tighter drop-shadow-lg">
+                สิ่งมีชีวิตเบ็ดเตล็ดใต้มหาสมุทรใต้
+            </h1>
+            <p class="text-xl md:text-2xl text-white font-light drop-shadow-md italic">
+                The Foundation: Krill, Fish, and Deep-Sea Giants
+            </p>
+        </div>
+    </header>
+
+    <!-- 3. MISC GALLERY -->
+    <main class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
+        <h2 class="text-4xl font-extrabold text-center mb-12 text-natgeo-blue border-b-4 border-ice-blue pb-4">
+            Key Invertebrates and Fish | สัตว์ไม่มีกระดูกสันหลังและปลาที่สำคัญ
+        </h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            
+            <!-- Card 1: Antarctic Krill -->
+            <div class="bg-white rounded-xl shadow-2xl overflow-hidden card-item border-b-8 border-natgeo-blue hover:shadow-3xl transition duration-300">
+                <div class="overflow-hidden">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Antarctic_krill_%28Euphausia_superba%29.jpg" class="card-image-misc" alt="Antarctic Krill Swarm">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-3xl font-bold text-natgeo-blue mb-3">Antarctic Krill | เคยลช์แอนตาร์กติก</h3>
+                    <p class="text-gray-600 mb-4">
+                        **English:** A small crustacean forming the bedrock of the entire Southern Ocean food web. Almost all large marine predators rely on krill.
+                    </p>
+                    <p class="text-natgeo-blue font-medium mb-4 border-t pt-4">
+                        **Thai (ไทย):** สัตว์เปลือกแข็งขนาดเล็กซึ่งเป็นรากฐานของห่วงโซ่อาหารทั้งหมดในมหาสมุทรใต้ สัตว์ผู้ล่าขนาดใหญ่เกือบทั้งหมดต้องพึ่งพาเคยลช์
+                    </p>
+                    <div class="mt-auto pt-4 border-t border-gray-200">
+                        <p class="text-sm text-gray-700 font-semibold mb-1"><strong>Biomass:</strong> Hundreds of millions of tons</p>
+                        <button onclick="openModal('krill')" class="text-natgeo-blue font-medium hover:underline flex items-center">View Importance / ดูความสำคัญ →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2: Antarctic Icefish -->
+            <div class="bg-white rounded-xl shadow-2xl overflow-hidden card-item border-b-8 border-natgeo-blue hover:shadow-3xl transition duration-300">
+                <div class="overflow-hidden">
+                    <img src="https://static01.nyt.com/images/2019/03/05/science/01TB-ICEFISH1/merlin_151394277_e8a44527-1cab-4e45-81f5-5e7ffa3f5952-superJumbo.jpg" class="card-image-misc" alt="Antarctic Icefish">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-3xl font-bold text-natgeo-blue mb-3">Antarctic Icefish | ปลาใต้น้ำแข็ง</h3>
+                    <p class="text-gray-600 mb-4">
+                        **English:** Famous for being the only vertebrate animal known to lack hemoglobin (red blood cells). They rely entirely on dissolved oxygen in the icy water.
+                    </p>
+                    <p class="text-natgeo-blue font-medium mb-4 border-t pt-4">
+                        **Thai (ไทย):** มีชื่อเสียงจากการเป็นสัตว์มีกระดูกสันหลังเพียงชนิดเดียวที่ไม่มีฮีโมโกลบิน (เม็ดเลือดแดง) พวกมันพึ่งพาออกซิเจนที่ละลายในน้ำแข็งเท่านั้น
+                    </p>
+                    <div class="mt-auto pt-4 border-t border-gray-200">
+                        <p class="text-sm text-gray-700 font-semibold mb-1"><strong>Adaptation:</strong> Antifreeze proteins</p>
+                        <button onclick="openModal('icefish')" class="text-natgeo-blue font-medium hover:underline flex items-center">Explore Biology / ดูชีววิทยา →</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Colossal Squid -->
+            <div class="bg-white rounded-xl shadow-2xl overflow-hidden card-item border-b-8 border-natgeo-blue hover:shadow-3xl transition duration-300">
+                <div class="overflow-hidden">
+                    <img src="https://i.natgeofe.com/n/9e35946e-b9bb-431f-887f-399983ac02e1/BMM24017_02_PerpetualPlanetExpeditions_Southern_ROV_7.jpg" class="card-image-misc" alt="Colossal Squid">
+                </div>
+                <div class="p-6">
+                    <h3 class="text-3xl font-bold text-natgeo-blue mb-3">Colossal Squid | ปลาหมึกยักษ์ใหญ่</h3>
+                    <p class="text-gray-600 mb-4">
+                        **English:** The largest known invertebrate, with eyes the size of dinner plates. It is a deep-sea predator and a primary food source for sperm whales.
+                    </p>
+                    <p class="text-natgeo-blue font-medium mb-4 border-t pt-4">
+                        **Thai (ไทย):** สัตว์ไม่มีกระดูกสันหลังที่ใหญ่ที่สุดเท่าที่รู้จัก โดยมีดวงตาขนาดเท่าจานอาหาร เป็นนักล่าที่อาศัยอยู่ในทะเลลึกและเป็นอาหารหลักของวาฬสเปิร์ม
+                    </p>
+                    <div class="mt-auto pt-4 border-t border-gray-200">
+                        <p class="text-sm text-gray-700 font-semibold mb-1"><strong>Max Length:</strong> ~14 meters</p>
+                        <button onclick="openModal('squid')" class="text-natgeo-blue font-medium hover:underline flex items-center">Discover Depths / สำรวจความลึก →</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <!-- 4. FOOTER (Consistent with other pages) -->
+    <footer class="bg-ice-blue-light py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-lg mb-2 text-natgeo-blue">&copy; 2024 Antarctica Life Expedition | สงวนลิขสิทธิ์ทั้งหมด</p>
+            <p class="text-sm opacity-90 text-natgeo-blue">โครงการเพื่อการศึกษาและเผยแพร่ความรู้ ร่วมกับ มหาวิทยาลัยศรีปทุม</p>
+        </div>
+    </footer>
+
+
+    <!-- MODAL 1: KRILL -->
+    <div id="modal-krill" class="modal fixed inset-0 bg-black bg-opacity-75 hidden z-50 overflow-y-auto" onclick="closeModal(event, 'krill')">
+        <div class="modal-content bg-white m-4 md:m-20 p-8 rounded-xl shadow-3xl max-w-4xl mx-auto transform translate-y-full" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-start border-b-2 border-natgeo-blue pb-4 mb-6">
+                <h3 class="text-4xl font-extrabold text-natgeo-blue">Antarctic Krill: รากฐานของระบบนิเวศ</h3>
+                <button class="text-gray-500 hover:text-gray-900 text-3xl font-light leading-none" onclick="closeModal(event, 'krill')">&times;</button>
+            </div>
+            
+            <div class="aspect-w-16 aspect-h-9 mb-6">
+                <div class="video-container">
+                    <iframe class="w-full h-80 rounded-lg shadow-xl" src="https://www.youtube.com/embed/RFqhocQqbgM?autoplay=0&rel=0" title="Krill Swarm Documentary" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <h4 class="text-2xl font-bold text-gray-700 mb-2">Krill Facts:</h4>
+            <p class="text-lg text-gray-600 mb-4">
+                **English:** Krill form massive swarms—so dense they can be seen from space. Their collective biomass is estimated to be one of the largest of any single animal species on Earth. They are responsible for linking phytoplankton energy to higher predators.
+            </p>
+            <h4 class="text-2xl font-bold text-gray-700 mb-2 mt-4">เกร็ดน่ารู้ (Fun Fact):</h4>
+            <p class="text-lg text-gray-600 mb-4">
+                เคยลช์สามารถอยู่ได้โดยไม่ต้องกินอาหารนานถึง 200 วันในฤดูหนาว โดยการลดขนาดตัวลงและใช้พลังงานที่สะสมไว้
+            </p>
+            <p class="text-lg text-natgeo-blue font-medium border-t pt-4">
+                **Thai (ไทย):** เคยลช์รวมตัวกันเป็นฝูงใหญ่จนมองเห็นได้จากอวกาศ มวลรวมของพวกมันคาดว่าเป็นหนึ่งในมวลรวมที่ใหญ่ที่สุดในบรรดาสัตว์ชนิดเดียวบนโลก พวกมันทำหน้าที่เชื่อมโยงพลังงานของแพลงก์ตอนพืชกับสัตว์ผู้ล่าระดับสูง
+            </p>
+        </div>
+    </div>
+
+    <!-- MODAL 2: ICEFISH -->
+    <div id="modal-icefish" class="modal fixed inset-0 bg-black bg-opacity-75 hidden z-50 overflow-y-auto" onclick="closeModal(event, 'icefish')">
+        <div class="modal-content bg-white m-4 md:m-20 p-8 rounded-xl shadow-3xl max-w-4xl mx-auto transform translate-y-full" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-start border-b-2 border-natgeo-blue pb-4 mb-6">
+                <h3 class="text-4xl font-extrabold text-natgeo-blue">Antarctic Icefish: การปรับตัวสู่ความหนาวจัด</h3>
+                <button class="text-gray-500 hover:text-gray-900 text-3xl font-light leading-none" onclick="closeModal(event, 'icefish')">&times;</button>
+            </div>
+            
+            <div class="aspect-w-16 aspect-h-9 mb-6">
+                <div class="video-container">
+                    <iframe class="w-full h-80 rounded-lg shadow-xl" src="https://www.youtube.com/embed/6dKB40hYlrs?autoplay=0&rel=0" title="Icefish Antifreeze Documentary" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <h4 class="text-2xl font-bold text-gray-700 mb-2">Icefish Facts:</h4>
+            <p class="text-lg text-gray-600 mb-4">
+                **English:** The lack of red blood cells gives the icefish blood a transparent, pale appearance. They survive freezing temperatures by producing unique antifreeze glyco-proteins that prevent ice crystals from forming in their bodies.
+            </p>
+            <h4 class="text-2xl font-bold text-gray-700 mb-2 mt-4">เกร็ดน่ารู้ (Fun Fact):</h4>
+            <p class="text-lg text-gray-600 mb-4">
+                เนื่องจากไม่มีเม็ดเลือดแดง ปลาใต้น้ำแข็งจึงมีเหงือกสีขาวซีดแทนที่จะเป็นสีแดงสด
+            </p>
+            <p class="text-lg text-natgeo-blue font-medium border-t pt-4">
+                **Thai (ไทย):** การขาดเม็ดเลือดแดงทำให้เลือดของปลาใต้น้ำแข็งมีลักษณะโปร่งใสและซีดจาง พวกมันรอดชีวิตจากอุณหภูมิเยือกแข็งได้ด้วยการสร้างไกลโคโปรตีนป้องกันการแข็งตัว (antifreeze) ที่ป้องกันไม่ให้ผลึกน้ำแข็งก่อตัวในร่างกาย
+            </p>
+        </div>
+    </div>
+
+    <!-- MODAL 3: COLOSSAL SQUID -->
+    <div id="modal-squid" class="modal fixed inset-0 bg-black bg-opacity-75 hidden z-50 overflow-y-auto" onclick="closeModal(event, 'squid')">
+        <div class="modal-content bg-white m-4 md:m-20 p-8 rounded-xl shadow-3xl max-w-4xl mx-auto transform translate-y-full" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-start border-b-2 border-natgeo-blue pb-4 mb-6">
+                <h3 class="text-4xl font-extrabold text-natgeo-blue">Colossal Squid: ยักษ์ใหญ่แห่งความลึก</h3>
+                <button class="text-gray-500 hover:text-gray-900 text-3xl font-light leading-none" onclick="closeModal(event, 'squid')">&times;</button>
+            </div>
+            
+            <div class="aspect-w-16 aspect-h-9 mb-6">
+                <div class="video-container">
+                    <iframe class="w-full h-80 rounded-lg shadow-xl" src="https://www.youtube.com/embed/n4f7rC7KkH4?autoplay=0&rel=0" title="Colossal Squid Footage" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <h4 class="text-2xl font-bold text-gray-700 mb-2">Colossal Squid Facts:</h4>
+            <p class="text-lg text-gray-600 mb-4">
+                **English:** The Colossal Squid has the largest eyes of any animal on Earth, measuring up to 30 cm across. Unlike the Giant Squid, its massive tentacles are equipped with sharp swiveling hooks instead of suckers.
+            </p>
+            <h4 class="text-2xl font-bold text-gray-700 mb-2 mt-4">เกร็ดน่ารู้ (Fun Fact):</h4>
+            <p class="text-lg text-gray-600 mb-4">
+                ปลาหมึกยักษ์ใหญ่อาศัยอยู่ในน้ำที่หนาวจัดของมหาสมุทรใต้ ซึ่งทำให้การศึกษาวิจัยพวกมันทำได้ยากมาก
+            </p>
+            <p class="text-lg text-natgeo-blue font-medium border-t pt-4">
+                **Thai (ไทย):** ปลาหมึกยักษ์ใหญ่มีดวงตาที่ใหญ่ที่สุดในบรรดาสัตว์ทั้งหมดบนโลก โดยมีขนาดใหญ่ถึง 30 ซม. แทนที่จะมีแค่หนวดดูดอย่างปลาหมึกยักษ์ทั่วไป หนวดขนาดมหึมาของมันติดตั้งด้วยตะขอหมุนได้ที่แหลมคม
+            </p>
+        </div>
+    </div>
+
+
+    <!-- JavaScript -->
+    <script>
+        // 1. Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // 2. Click-Toggled Dropdown Logic
+        const dropdownBtn = document.getElementById('wildlife-dropdown-btn');
+        const dropdownMenu = document.getElementById('wildlife-dropdown-menu');
+        const dropdownContainer = document.getElementById('wildlife-dropdown-container');
+        const dropdownArrow = document.getElementById('dropdown-arrow');
+
+        const toggleDropdown = () => {
+            const isVisible = dropdownMenu.classList.toggle('dropdown-hidden');
+            dropdownMenu.classList.toggle('dropdown-visible');
+            dropdownBtn.setAttribute('aria-expanded', !isVisible);
+            
+            if (!isVisible) {
+                dropdownArrow.classList.add('rotate-180');
+            } else {
+                dropdownArrow.classList.remove('rotate-180');
+            }
+        };
+
+        dropdownBtn.addEventListener('click', toggleDropdown);
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            if (dropdownMenu.classList.contains('dropdown-visible') && !dropdownContainer.contains(event.target)) {
+                toggleDropdown();
+            }
+        });
+
+        // 4. MODAL LOGIC 
+        // Helper function to stop video playback
+        const stopModalVideo = (modal) => {
+            const iframe = modal.querySelector('iframe');
+            if (iframe) {
+                const iframeSrc = iframe.src;
+                iframe.src = iframeSrc; 
+            }
+        };
+        
+        const openModal = (species) => {
+            const modal = document.getElementById(`modal-${species}`);
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex', 'items-center', 'justify-center');
+                setTimeout(() => {
+                    modal.querySelector('.modal-content').classList.remove('translate-y-full');
+                    modal.style.opacity = 1;
+                }, 10);
+                document.body.style.overflow = 'hidden';
+            }
+        };
+
+        const closeModal = (event, species) => {
+            const modal = document.getElementById(`modal-${species}`);
+            if (modal) {
+                stopModalVideo(modal);
+
+                modal.querySelector('.modal-content').classList.add('translate-y-full');
+                modal.style.opacity = 0;
+                
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex', 'items-center', 'justify-center');
+                    document.body.style.overflow = '';
+                }, 300);
+            }
+        };
+
+        // Allow closing modal with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const openModalElement = document.querySelector('.modal:not(.hidden)');
+                if (openModalElement) {
+                    const species = openModalElement.id.replace('modal-', '');
+                    closeModal(e, species);
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>

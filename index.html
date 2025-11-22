@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antarctica Wildlife - Expedition Report</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter font and fallback to a clean Thai font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Sans+Thai:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', 'Noto Sans Thai', sans-serif; /* Add Noto Sans Thai for clean Thai display */
+            background-color: #F8FAFC; /* Lightest blue-gray for background */
+            scroll-behavior: smooth;
+        }
+        .hero-bg {
+            background-image: url('https://www.swoop-antarctica.com/blog/wp-content/uploads/2024/02/Peninsula.jpg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .hero-overlay {
+            background-color: rgba(0, 70, 128, 0.4); /* Deep ice blue overlay */
+        }
+        .text-natgeo-blue {
+            color: #004680; /* A dark, deep blue for headings */
+        }
+        .border-ice-blue {
+            border-color: #A0D7E8; /* A light, icy blue */
+        }
+        .bg-ice-blue-light {
+             background-color: #E6F7FF; /* Very light blue background */
+        }
+        .card-image-wrapper {
+            height: 250px;
+            overflow: hidden;
+        }
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+        .card-image-container:hover .card-image {
+            transform: scale(1.05);
+        }
+        /* Custom style for the university logo */
+        .university-logo {
+            filter: brightness(0.5) sepia(1) saturate(5) hue-rotate(190deg); /* Make the black logo blue to match the theme */
+        }
+        /* Dropdown transition for smooth open/close */
+        .dropdown-menu-transition {
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+            transform-origin: top;
+        }
+        .dropdown-hidden {
+            opacity: 0;
+            transform: scaleY(0.9);
+            visibility: hidden;
+            pointer-events: none; /* Prevents interaction when hidden */
+        }
+        .dropdown-visible {
+            opacity: 1;
+            transform: scaleY(1);
+            visibility: visible;
+            pointer-events: auto; /* Allows interaction when visible */
+        }
+
+        /* Modal specific styles */
+        .modal {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- 1. NAVIGATION BAR (Sticky, Deep Blue) -->
+    <nav class="sticky top-0 z-50 bg-white shadow-lg border-b-4 border-natgeo-blue">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex">
+                    <!-- Logo/Brand (Updated with your SPU logo) -->
+                    <a href="#" class="flex-shrink-0 flex items-center text-2xl font-extrabold text-natgeo-blue tracking-wider">
+                        <img src="new_logo_spu04.gif" 
+                             alt="SPU University Logo" 
+                             class="w-16 h-auto mr-2 university-logo">
+                        ANTARCTICA LIFE
+                    </a>
+                </div>
+                <!-- Navigation Links -->
+                <div class="hidden sm:ml-6 sm:flex sm:space-x-8 items-center">
+                    <a href="#home" class="text-natgeo-blue font-semibold hover:bg-natgeo-blue hover:text-white px-3 py-2 rounded-lg transition duration-150">หน้าแรก</a>
+                    <a href="#about" class="text-gray-600 hover:text-natgeo-blue px-3 py-2 rounded-lg transition duration-150">แผ่นน้ำแข็ง</a>
+                    
+                    <!-- Click-Toggled Dropdown Menu for Wildlife -->
+                    <div class="relative" id="wildlife-dropdown-container">
+                        <button id="wildlife-dropdown-btn" class="text-gray-600 hover:text-natgeo-blue px-3 py-2 rounded-lg transition duration-150 flex items-center focus:outline-none" aria-expanded="false">
+                            สิ่งมีชีวิต
+                            <!-- Down/Up Arrow Icon -->
+                            <svg class="ml-1 w-4 h-4 transition duration-150" id="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <!-- The Menu: Initially hidden (dropdown-hidden) -->
+                        <div id="wildlife-dropdown-menu" class="absolute right-0 mt-3 py-2 bg-white rounded-lg shadow-xl border-2 border-natgeo-blue overflow-hidden z-40
+                                    dropdown-menu-transition dropdown-hidden">
+                            <a href="seal.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150 min-w-[150px]">แมวน้ำ (Seal)</a>
+                            <a href="polarbear.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">หมีขั้วโลก (Polar Bear)</a>
+                            <a href="penguin.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">เพนกวิน (Penguin)</a>
+                            <a href="orca.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">วาฬเพชฌฆาต (Orca)</a>
+                            <a href="misc.html" class="block px-4 py-2 text-gray-700 hover:bg-blue-100 hover:text-natgeo-blue transition duration-150">เบ็ดเตล็ด (Misc.)</a>
+                        </div>
+                    </div>
+
+                    <!-- Expedition Notes Button (Color fixed for contrast) -->
+                    <a href="group.html" class="bg-white text-natgeo-blue font-bold px-4 py-2 rounded-full shadow-lg border-2 border-natgeo-blue hover:bg-natgeo-blue hover:text-white transition duration-150">
+                        สมาชิกกลุ่ม (Group 10 Member)
+                    </a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="-mr-2 flex items-center sm:hidden">
+                    <button id="mobile-menu-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-natgeo-blue hover:text-white hover:bg-natgeo-blue focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" /></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div class="sm:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+               <a href="#home" class="bg-natgeo-blue text-white block px-3 py-2 rounded-md text-base font-medium">หน้าแรก (Home)</a>
+                <a href="#about" class="text-natgeo-blue hover:bg-blue-100 block px-3 py-2 rounded-md text-base font-medium">แผ่นน้ำแข็ง (The Ice Sheet)</a>
+                <a href="#wildlife" class="text-natgeo-blue hover:bg-blue-100 block px-3 py-2 rounded-md text-base font-medium">สิ่งมีชีวิต (Dropdown Parent)</a>
+                <a href="seal.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- แมวน้ำ (Seal)</a>
+                <a href="polarbear.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- หมีขั้วโลก (Polar Bear)</a>
+                <a href="penguin.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- เพนกวิน (Penguin)</a>
+                <a href="orca.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- วาฬเพชฌฆาต (Orca)</a>
+                <a href="misc.html" class="text-natgeo-blue hover:bg-blue-100 block pl-8 pr-3 py-1 rounded-md text-sm font-medium">-- เบ็ดเตล็ด (Misc.)</a>
+                <a href="group.html" class="text-natgeo-blue hover:bg-blue-100 block px-3 py-2 rounded-md text-base font-medium">สมาชิกกลุ่ม (Group 10 Member)</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. HERO SECTION (Antarctica Landscape) -->
+    <header id="home" class="hero-bg h-[80vh] min-h-[500px] flex items-center justify-center rounded-b-2xl shadow-xl">
+        <div class="hero-overlay absolute inset-0 rounded-b-2xl"></div>
+        <div class="relative text-center p-6 md:p-12">
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-tight mb-4 tracking-tighter drop-shadow-lg">
+                ดินแดนน้ำแข็งสุดขอบโลก
+            </h1>
+            <p class="text-xl md:text-2xl text-white font-light drop-shadow-md italic">
+                การเดินทางสู่ดินแดนที่หนาวที่สุดและสิ่งมีชีวิตในนั้น
+            </p>
+            <a href="#wildlife" class="mt-8 inline-block bg-white text-natgeo-blue font-bold text-lg px-8 py-3 rounded-full shadow-2xl transition duration-300 transform hover:scale-105 hover:shadow-3xl">
+                สำรวจสิ่งมีชีวิต
+            </a>
+        </div>
+    </header>
+
+    <!-- 3. ABOUT SECTION (The Ice Sheet) -->
+    <section id="about" class="py-16 md:py-24 bg-ice-blue-light">
+        <div class="max-w-6xl mx-auto px-6 lg:px-8">
+            <h2 class="text-5xl font-extrabold text-center mb-12 text-natgeo-blue">
+                แอนตาร์กติกา: ทวีปสีขาวอันยิ่งใหญ่
+            </h2>
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <p class="mt-4 text-xl leading-relaxed text-gray-700 border-l-4 border-natgeo-blue pl-4">
+                        แอนตาร์กติกาคือดินแดนที่รวมเอาที่สุดของโลกไว้ด้วยกัน: หนาวที่สุด แห้งแล้งที่สุด และลมแรงที่สุด ครอบคลุมพื้นที่กว่า 90% ของน้ำแข็งทั่วโลก และถูกจัดให้เป็นทะเลทรายเนื่องจากปริมาณน้ำฝนที่น้อยมาก โลกน้ำแข็งอันกว้างใหญ่นี้หล่อเลี้ยงระบบนิเวศที่มีเอกลักษณ์และปรับตัวให้เข้ากับสภาพแวดล้อมที่โหดร้ายได้อย่างสมบูรณ์
+                    </p>
+                    <p class="mt-6 text-lg text-gray-600">
+                        สิ่งมีชีวิตส่วนใหญ่อาศัยอยู่ตามแนวชายฝั่งและมหาสมุทรโดยรอบ ซึ่งเป็นที่ที่เคยลช์ (Krill) ซึ่งเป็นสปีชีส์สำคัญ เจริญเติบโตได้อย่างดี เป็นแหล่งอาหารสำคัญของวาฬ แมวน้ำ และเพนกวินจำนวนมหาศาล ภารกิจสำรวจของเรามีเป้าหมายเพื่อบันทึกความยืดหยุ่นและความงดงามของสิ่งมีชีวิตเหล่านี้ ท่ามกลางสภาพแวดล้อมที่เปลี่ยนแปลงไป
+                    </p>
+                    <div class="mt-8 flex space-x-4">
+                        <span class="text-sm font-semibold text-natgeo-blue border-b-2 border-natgeo-blue pb-1">พื้นที่: 14 ล้าน ตร.กม.</span>
+                        <span class="text-sm font-semibold text-natgeo-blue border-b-2 border-natgeo-blue pb-1">อุณหภูมิต่ำสุด: -89.2°C</span>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2">
+                    <!-- Placeholder Image - National Geo style -->
+                    <img src="https://everwallpaper.com/cdn/shop/products/3000_1000_90b86d96-e865-43bb-98e2-9902566ac5b7.webp?v=1655282003" 
+                         alt="Icebergs in Antarctica" 
+                         class="rounded-xl shadow-2xl border-4 border-white transform hover:rotate-1 transition duration-500">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. WILDLIFE GALLERY SECTION -->
+    <section id="wildlife" class="py-16 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+            <h2 class="text-5xl font-extrabold text-center mb-4 text-natgeo-blue">
+                สัตว์เด่นแห่งแอนตาร์กติก
+            </h2>
+            <p class="text-center text-xl text-gray-500 mb-16">
+                พบกับผู้พำนักอันมีเสน่ห์แห่งมหาสมุทรใต้
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                
+                <!-- Card 1: Penguin -->
+                <div class="bg-white rounded-xl shadow-2xl overflow-hidden card-image-container border-b-8 border-natgeo-blue">
+                    <div class="card-image-wrapper">
+                        <img src="https://www.antarctica.gov.au/site/assets/files/67447/rs76474.1600x0.jpg" 
+                             alt="Adelie Penguin standing on ice" 
+                             class="card-image">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-3xl font-bold text-natgeo-blue mb-2">Emperor Penguin</h3>
+                        <p class="text-gray-600 text-lg">
+                            เพนกวินชนิดนี้เป็นชนิดที่สูงและหนักที่สุดในบรรดาเพนกวินทั้งหมด เป็นสัตว์พื้นเมืองของทวีปแอนตาร์กติกา พวกมันจะผสมพันธุ์ในช่วงฤดูหนาว และเดินทางไกลถึง 120 ไมล์ไปยังอาณานิคมบนผืนน้ำแข็ง
+                        </p>
+                        <button onclick="openModal('penguin')" class="mt-4 inline-block text-natgeo-blue font-semibold hover:underline flex items-center">อ่านเพิ่มเติม / ดูวิดีโอ <span class="ml-1 text-xl">→</span></button>
+                    </div>
+                </div>
+
+                <!-- Card 2: Harp Seal (Replaces Weddell Seal) -->
+                <div class="bg-white rounded-xl shadow-2xl overflow-hidden card-image-container border-b-8 border-natgeo-blue">
+                    <div class="card-image-wrapper">
+                        <!-- Image updated to reflect a Harp Seal -->
+                        <img src="https://cdn.shopify.com/s/files/1/0996/1022/files/8_fcef39e2-ffcf-4e99-8c6d-c8cb5b6ab42f.jpg?v=1737648048&width=2048" 
+                             alt="Harp Seal pup resting on ice" 
+                             class="card-image">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-3xl font-bold text-natgeo-blue mb-2">Harp Seal</h3>
+                        <p class="text-gray-600 text-lg">
+                            แมวน้ำ Harp (Harp Seal) โดดเด่นด้วยขนสีขาวบริสุทธิ์เมื่อยังเป็นลูกอ่อน และมีเครื่องหมายรูปพิณสีดำเมื่อโตเต็มวัค พวกมันอพยพเป็นระยะทางไกลและมีความสำคัญต่อระบบนิเวศของมหาสมุทรแอตแลนติกเหนือ
+                        </p>
+                        <button onclick="openModal('harp-seal')" class="mt-4 inline-block text-natgeo-blue font-semibold hover:underline flex items-center">ดูข้อมูลเชิงลึก / วิดีโอ <span class="ml-1 text-xl">→</span></button>
+                    </div>
+                </div>
+
+                <!-- Card 3: Whale/Orca -->
+                <div class="bg-white rounded-xl shadow-2xl overflow-hidden card-image-container border-b-8 border-natgeo-blue">
+                    <div class="card-image-wrapper">
+                        <img src="https://a-z-animals.com/media/2022/09/shutterstock_1635615292-1024x762.jpg" 
+                             alt="Orca whale breaching in the Southern Ocean" 
+                             class="card-image">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-3xl font-bold text-natgeo-blue mb-2">วาฬเพชฌฆาต (Orcas)</h3>
+                        <p class="text-gray-600 text-lg">
+                            เป็นนักล่าสูงสุดแห่งมหาสมุทรใต้ มีกลยุทธ์การล่าที่ซับซ้อนและโครงสร้างทางสังคมที่ซับซ้อน วาฬเพชฌฆาต 'Type B' เชี่ยวชาญในการล่าแมวน้ำจากแผ่นน้ำแข็ง
+                        </p>
+                        <button onclick="openModal('orca')" class="mt-4 inline-block text-natgeo-blue font-semibold hover:underline flex items-center">ชมวิดีโอรายงาน / ข้อมูลเชิงลึก <span class="ml-1 text-xl">→</span></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. CALL TO ACTION / EXPEDITION NOTES (Removed) -->
+    
+    <!-- 6. FOOTER -->
+    <footer class="bg-ice-blue-light py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <!-- Text color changed from text-white to text-natgeo-blue to ensure high contrast against the light background -->
+            <p class="text-lg mb-2 text-natgeo-blue">&copy; 2024 Antarctica Life Expedition | สงวนลิขสิทธิ์ทั้งหมด</p>
+            <p class="text-sm opacity-90 text-natgeo-blue">โครงการเพื่อการศึกษาและเผยแพร่ความรู้ ร่วมกับ มหาวิทยาลัยศรีปทุม</p>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: EMPEROR PENGUIN -->
+    <div id="modal-penguin" class="modal fixed inset-0 bg-black bg-opacity-75 hidden z-50 overflow-y-auto" onclick="closeModal(event, 'penguin')">
+        <div class="modal-content bg-white m-4 md:m-20 p-8 rounded-xl shadow-3xl max-w-4xl mx-auto transform translate-y-full" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-start border-b-2 border-natgeo-blue pb-4 mb-6">
+                <h3 class="text-4xl font-extrabold text-natgeo-blue">Emperor Penguin: ข้อมูลเชิงลึก</h3>
+                <button class="text-gray-500 hover:text-gray-900 text-3xl font-light leading-none" onclick="closeModal(event, 'penguin')">&times;</button>
+            </div>
+            
+            <div class="aspect-w-16 aspect-h-9 mb-6">
+                <!-- iframe is wrapped in a container div with class 'video-container' for easy targeting -->
+                <div class="video-container">
+                    <iframe class="w-full h-80 rounded-lg shadow-xl" src="https://www.youtube.com/embed/qWTwan_G6YE?autoplay=0&rel=0" title="Emperor Penguin Documentary" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <h4 class="text-2xl font-bold text-gray-700 mb-2">Emperor Penguin Facts:</h4>
+            <p class="text-lg text-gray-600 mb-4">
+                **English:** The Emperor Penguin is the only penguin species to breed during the Antarctic winter. Males endure harsh conditions, incubating the egg for over two months without food. They form large groups to conserve heat.
+            </p>
+            
+            <!-- ADDED THAI FUN FACT -->
+            <h4 class="text-2xl font-bold text-gray-700 mb-2 mt-4">เกร็ดน่ารู้ (Fun Fact):</h4>
+            <p class="text-lg text-gray-600 mb-4">
+                เพนกวินจักรพรรดิสามารถดำน้ำได้ลึกกว่า 500 เมตร และกลั้นหายใจได้นานถึง 20 นาที ซึ่งเป็นสถิติสูงสุดในบรรดาเพนกวิน
+            </p>
+
+            <p class="text-lg text-natgeo-blue font-medium border-t pt-4">
+                **Thai (ไทย):** เพนกวินจักรพรรดิเป็นเพนกวินเพียงชนิดเดียวที่ผสมพันธุ์ในช่วงฤดูหนาวของแอนตาร์กติกา ตัวผู้จะทนต่อสภาพอากาศที่เลวร้าย โดยกกไข่นานกว่าสองเดือนโดยไม่ได้รับอาหาร พวกมันจะรวมตัวกันเป็นกลุ่มใหญ่เพื่อรักษาความอบอุ่น
+            </p>
+        </div>
+    </div>
+
+    <!-- MODAL 2: HARP SEAL (Replaces Weddell Seal) -->
+    <div id="modal-harp-seal" class="modal fixed inset-0 bg-black bg-opacity-75 hidden z-50 overflow-y-auto" onclick="closeModal(event, 'harp-seal')">
+        <div class="modal-content bg-white m-4 md:m-20 p-8 rounded-xl shadow-3xl max-w-4xl mx-auto transform translate-y-full" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-start border-b-2 border-natgeo-blue pb-4 mb-6">
+                <h3 class="text-4xl font-extrabold text-natgeo-blue">Harp Seal: ข้อมูลเชิงลึก</h3>
+                <button class="text-gray-500 hover:text-gray-900 text-3xl font-light leading-none" onclick="closeModal(event, 'harp-seal')">&times;</button>
+            </div>
+            
+            <div class="aspect-w-16 aspect-h-9 mb-6">
+                <!-- Placeholder YouTube Embed - Title changed for Harp Seal -->
+                <div class="video-container">
+                    <iframe class="w-full h-80 rounded-lg shadow-xl" src="https://www.youtube.com/embed/BG_zMQtYB_E?autoplay=0&rel=0" title="Harp Seal Documentary" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <h4 class="text-2xl font-bold text-gray-700 mb-2">Harp Seal Facts:</h4>
+            <p class="text-lg text-gray-600 mb-4">
+                **English:** Harp Seals are named for the black harp-shaped mark on their back once they mature. They are not endemic to Antarctica but are critical Arctic/North Atlantic species known for their vast migrations. Their pups are famous for their pure white coat.
+            </p>
+            
+            <!-- ADDED THAI FUN FACT -->
+            <h4 class="text-2xl font-bold text-gray-700 mb-2 mt-4">เกร็ดน่ารู้ (Fun Fact):</h4>
+            <p class="text-lg text-gray-600 mb-4">
+                ลูกแมวน้ำพิณจะผลัดขนสีขาวบริสุทธิ์เมื่ออายุประมาณ 2-3 สัปดาห์ และจะว่ายน้ำได้ตั้งแต่นั้นเป็นต้นมา
+            </p>
+
+            <p class="text-lg text-natgeo-blue font-medium border-t pt-4">
+                **Thai (ไทย):** แมวน้ำ Harp ได้ชื่อมาจากเครื่องหมายสีดำรูปร่างคล้ายพิณที่ปรากฏบนหลังเมื่อโตเต็มวัย พวกมันไม่ได้มีถิ่นกำเนิดในแอนตาร์กติกา แต่เป็นสัตว์สำคัญในระบบนิเวศของมหาสมุทรอาร์กติก/แอตแลนติกเหนือ และเป็นที่รู้จักจากการอพยพครั้งใหญ่ ลูกแมวน้ำ Harp มีชื่อเสียงจากขนสีขาวบริสุทธิ์
+            </p>
+        </div>
+    </div>
+
+    <!-- MODAL 3: ORCA (KILLER WHALE) -->
+    <div id="modal-orca" class="modal fixed inset-0 bg-black bg-opacity-75 hidden z-50 overflow-y-auto" onclick="closeModal(event, 'orca')">
+        <div class="modal-content bg-white m-4 md:m-20 p-8 rounded-xl shadow-3xl max-w-4xl mx-auto transform translate-y-full" onclick="event.stopPropagation()">
+            <div class="flex justify-between items-start border-b-2 border-natgeo-blue pb-4 mb-6">
+                <h3 class="text-4xl font-extrabold text-natgeo-blue">Orca: วาฬเพชฌฆาตแห่งขั้วโลก</h3>
+                <button class="text-gray-500 hover:text-gray-900 text-3xl font-light leading-none" onclick="closeModal(event, 'orca')">&times;</button>
+            </div>
+            
+            <div class="aspect-w-16 aspect-h-9 mb-6">
+                <div class="video-container">
+                    <iframe class="w-full h-80 rounded-lg shadow-xl" src="https://www.youtube.com/embed/3DkEePjRP04?autoplay=0&rel=0" title="Orca Hunting Strategy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <h4 class="text-2xl font-bold text-gray-700 mb-2">Orca Hunting Tactics:</h4>
+            <p class="text-lg text-gray-600 mb-4">
+                **English:** Antarctic Orcas display fascinating hunting behavior, particularly the 'Type B' ecotype which specializes in wave-washing: coordinating attacks to create a large wave that washes seals off ice floes into the water. This demonstrates extreme social intelligence and cooperation.
+            </p>
+            
+            <!-- ADDED THAI FUN FACT -->
+            <h4 class="text-2xl font-bold text-gray-700 mb-2 mt-4">เกร็ดน่ารู้ (Fun Fact):</h4>
+            <p class="text-lg text-gray-600 mb-4">
+                วาฬเพชฌฆาตบางกลุ่มใช้ภาษาและสำเนียงการสื่อสารที่แตกต่างกัน ซึ่งทำหน้าที่เหมือนเป็นภาษาถิ่นเฉพาะของแต่ละฝูง
+            </p>
+
+            <p class="text-lg text-natgeo-blue font-medium border-t pt-4">
+                **Thai (ไทย):** วาฬเพชฌฆาตแอนตาร์กติกาแสดงพฤติกรรมการล่าที่น่าทึ่ง โดยเฉพาะกลุ่ม 'Type B' ที่เชี่ยวชาญการสร้างคลื่นเพื่อชะล้าง: พวกมันจะประสานงานกันสร้างคลื่นขนาดใหญ่เพื่อชะลอแมวน้ำที่อยู่บนแผ่นน้ำแข็งให้ตกลงไปในน้ำ การกระทำนี้แสดงให้เห็นถึงสติปัญญาทางสังคมและความร่วมมือในระดับสูง
+            </p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // 1. Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // 2. Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 3. Click-Toggled Dropdown Logic
+        const dropdownBtn = document.getElementById('wildlife-dropdown-btn');
+        const dropdownMenu = document.getElementById('wildlife-dropdown-menu');
+        const dropdownContainer = document.getElementById('wildlife-dropdown-container');
+        const dropdownArrow = document.getElementById('dropdown-arrow');
+
+        const toggleDropdown = () => {
+            const isVisible = dropdownMenu.classList.toggle('dropdown-hidden');
+            dropdownMenu.classList.toggle('dropdown-visible');
+            dropdownBtn.setAttribute('aria-expanded', !isVisible);
+            
+            // Rotate the arrow icon
+            if (!isVisible) {
+                dropdownArrow.classList.add('rotate-180');
+            } else {
+                dropdownArrow.classList.remove('rotate-180');
+            }
+        };
+
+        dropdownBtn.addEventListener('click', toggleDropdown);
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (event) => {
+            // Check if the click is outside the dropdown container
+            if (dropdownMenu.classList.contains('dropdown-visible') && !dropdownContainer.contains(event.target)) {
+                toggleDropdown();
+            }
+        });
+
+        // Close dropdown when a link inside is clicked
+        dropdownMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                // Wait briefly for scroll animation before closing
+                setTimeout(() => {
+                    if (dropdownMenu.classList.contains('dropdown-visible')) {
+                        toggleDropdown();
+                    }
+                }, 300); 
+            });
+        });
+
+        // 4. MODAL LOGIC 
+        // Helper function to stop video playback
+        const stopModalVideo = (modal) => {
+            const iframe = modal.querySelector('iframe');
+            if (iframe) {
+                // Resetting the iframe source stops the video playback
+                const iframeSrc = iframe.src;
+                iframe.src = iframeSrc; 
+            }
+        };
+        
+        const openModal = (species) => {
+            const modal = document.getElementById(`modal-${species}`);
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex', 'items-center', 'justify-center');
+                // Animate content for smooth entry
+                setTimeout(() => {
+                    modal.querySelector('.modal-content').classList.remove('translate-y-full');
+                    modal.style.opacity = 1;
+                }, 10);
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+        };
+
+        const closeModal = (event, species) => {
+            const modal = document.getElementById(`modal-${species}`);
+            if (modal) {
+                // STOP THE VIDEO HERE
+                stopModalVideo(modal);
+
+                // Animate content for smooth exit
+                modal.querySelector('.modal-content').classList.add('translate-y-full');
+                modal.style.opacity = 0;
+                
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modal.classList.remove('flex', 'items-center', 'justify-center');
+                    document.body.style.overflow = ''; // Restore scrolling
+                }, 300);
+            }
+        };
+
+        // Allow closing modal with ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const openModalElement = document.querySelector('.modal:not(.hidden)');
+                if (openModalElement) {
+                    const species = openModalElement.id.replace('modal-', '');
+                    closeModal(e, species);
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
